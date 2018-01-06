@@ -32,16 +32,20 @@ window.onload = function() {
 	// next line makes the black background
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	
-	// next line is the ball
-	// There's no draw circle function, so you use arcs. You have to begin path and then indicate what the arc's dimensions are, then fill it.
-	canvasContext.fillStyle = 'red';
-	canvasContext.beginPath();
-	// X and Y coordinate of the center of the arc, the radius of the circle, the radians of the circle (start and end points Math.PI*2 takes the circle completely around), and true makes it draw clockwise vs counter-clockwise)
-	canvasContext.arc(ballX, 100, 10, 0, Math.PI*2, true);
-	canvasContext.fill();
+	// next line is the ball using the function colorCircle
+	colorCircle(ballX, 150, 10, 'white');
 	
 	// next line is the left paddle
 	colorRect(10,210,10,100, 'white');
+ }
+ 
+ function colorCircle(centerX, centerY, radius, color) {
+	// There's no draw circle function, so you use arcs. You have to begin path and then indicate what the arc's dimensions are, then fill it.
+	canvasContext.fillStyle = color;
+	canvasContext.beginPath();
+	// X and Y coordinate of the center of the arc, the radius of the circle, the radians of the circle (start and end points Math.PI*2 takes the circle completely around), and true makes it draw clockwise vs counter-clockwise)
+	canvasContext.arc(centerX, centerY, radius, 0, Math.PI*2, true);
+	canvasContext.fill();
  }
  
  function colorRect(leftX, topY, width, height, drawColor) {
