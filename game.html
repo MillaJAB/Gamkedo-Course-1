@@ -29,13 +29,19 @@ window.onload = function() {
  }
  
  function drawEverything() {
+	// next line makes the black background
+	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	
-	canvasContext.fillStyle = 'black';
-	canvasContext.fillRect(0,0,canvas.width, canvas.height);
-	canvasContext.fillStyle = 'red';
-	canvasContext.fillRect(ballX,100,10,10);
-	canvasContext.fillStyle = 'white';
-	canvasContext.fillRect(10,210,10,100);
+	// next line is the ball
+	colorRect(ballX,100,10,10, 'red');
+	
+	// next line is the left paddle
+	colorRect(10,210,10,100, 'white');
+ }
+ 
+ function colorRect(leftX, topY, width, height, drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillRect(leftX , topY , width, height);
  }
  
 </script>
