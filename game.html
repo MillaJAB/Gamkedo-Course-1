@@ -18,6 +18,9 @@ var paddle1Y = 250;
 var paddle2Y = 250;
 const PADDLE_HEIGHT = 100;
 const PADDLE_WIDTH = 10;
+const WIN_CONDITION = 3;
+
+var showWinningScreen = false;
 
 // An event is fired every time the mouse moves and evt is the coordinates of the event
 
@@ -52,6 +55,13 @@ window.onload = function() {
  }
  
  function ballReset() {
+	if (player1Score >= WIN_CONDITION ||
+		player2Score >= WIN_CONDITION) {
+			player1Score = 0;
+			player2Score = 0;
+			showWinningScreen = true;
+	}
+ 
 	ballSpeedX = -ballSpeedX;
 	ballX = canvas.width/2;
 	ballY = canvas.height/2;
@@ -67,6 +77,9 @@ window.onload = function() {
  }
   
  function moveEverything() {
+	if (showWinningScreen) {
+		return;
+	}
 	computerMovement();
  
 	ballX = ballX + ballSpeedX;
@@ -76,18 +89,24 @@ window.onload = function() {
 		if (ballY > paddle2Y &&
 			ballY < paddle2Y+PADDLE_HEIGHT) {
 			ballSpeedX = -ballSpeedX;
+			
+			var deltaY = ballY -(paddle2Y+PADDLE_HEIGHT/2);
+			ballSpeedY = deltaY * 0.35;
 		} else {
-		ballReset();
-		player1Score++;
+			player1Score++;
+			ballReset();
 		}
 	}
 	if (ballX < 0) {
 		if (ballY > paddle1Y &&
 			ballY < paddle1Y+PADDLE_HEIGHT) {
 			ballSpeedX = -ballSpeedX;
+			
+			var deltaY = ballY -(paddle1Y+PADDLE_HEIGHT/2);
+			ballSpeedY = deltaY * 0.35;
 		} else {
-		ballReset();
 		player2Score++;
+		ballReset();
 		}
 	}
 	if (ballY > canvas.height) {
@@ -102,6 +121,12 @@ window.onload = function() {
  function drawEverything() {
 	// next line makes the black background
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
+	
+	if (showWinningScreen) {
+		canvasContext.fillStyle = "white";
+		canvasContext.fillText("click to continue", 100, 100);
+		return;
+	}
 	
 	// next line is the ball using the function colorCircle
 	colorCircle(ballX, ballY, 10, 'white');
