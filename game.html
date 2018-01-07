@@ -12,7 +12,9 @@ var ballSpeedX = 10;
 var ballSpeedY = 4;
 
 var paddle1Y = 250;
+var paddle2Y = 250;
 const PADDLE_HEIGHT = 100;
+const PADDLE_WIDTH = 10;
 
 // An event is fired every time the mouse moves and evt is the coordinates of the event
 
@@ -42,7 +44,7 @@ window.onload = function() {
   canvas.addEventListener('mousemove',
 	function(evt) {
 		var mousePos = calculateMousePos(evt);
-		paddle1Y = mousePos.y -(PADDLE_HEIGHT/2);
+		paddle2Y = mousePos.y -(PADDLE_HEIGHT/2);
 	});
  }
  
@@ -84,7 +86,10 @@ window.onload = function() {
 	colorCircle(ballX, ballY, 10, 'white');
 	
 	// next line is the left paddle
-	colorRect(0,paddle1Y,10,PADDLE_HEIGHT, 'white');
+	colorRect(0,paddle1Y,PADDLE_WIDTH,PADDLE_HEIGHT, 'white');
+	
+	// next line is the right paddle
+	colorRect(canvas.width-PADDLE_WIDTH,paddle2Y,PADDLE_WIDTH,PADDLE_HEIGHT, 'white');
  }
  
  function colorCircle(centerX, centerY, radius, color) {
