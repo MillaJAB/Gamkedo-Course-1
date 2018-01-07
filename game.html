@@ -5,10 +5,30 @@
 <script>
 var canvas;
 var canvasContext;
+
 var ballX = 50;
 var ballY = 50;
 var ballSpeedX = 10;
 var ballSpeedY = 4;
+
+var paddle1Y = 250;
+const PADDLE_HEIGHT = 100;
+
+// An event is fired every time the mouse moves and evt is the coordinates of the event
+
+function calculateMousePos(evt) {
+	// This gets the bounding box of the canvas, so it knows it can't go beyond that
+	var rect = canvas.getBoundingClientRect();
+	
+	var root = document.documentElement;
+	// Sets x and y independent of wherever the window is or how it's scrolled...or something. lol
+	var mouseX = evt.clientX - rect.left - root.scrollLeft;
+	var mouseY = evt.clientY - rect.top - root.scrollTop;
+	return {
+		x: mouseX,
+		y:mouseY
+	};
+}
 
 window.onload = function() { 
   canvas = document.getElementById('gameCanvas');
@@ -18,6 +38,12 @@ window.onload = function() {
 	moveEverything();
 	drawEverything();
   }, 1000/framesPerSecond);
+  
+  canvas.addEventListener('mousemove',
+	function(evt) {
+		var mousePos = calculateMousePos(evt);
+		paddle1Y = mousePos.y;
+	});
  }
   
  function moveEverything() {
@@ -47,7 +73,7 @@ window.onload = function() {
 	colorCircle(ballX, ballY, 10, 'white');
 	
 	// next line is the left paddle
-	colorRect(10,210,10,100, 'white');
+	colorRect(10,paddle1Y,10,100, 'white');
  }
  
  function colorCircle(centerX, centerY, radius, color) {
