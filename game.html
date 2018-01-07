@@ -53,8 +53,19 @@ window.onload = function() {
 	ballX = canvas.width/2;
 	ballY = canvas.height/2;
  }
+ 
+ function computerMovement() {
+	var paddle2YCenter = paddle2Y + (PADDLE_HEIGHT/2);
+	if (paddle2YCenter < ballY-35) {
+		paddle2Y += 6;
+	} else if (paddle2YCenter > ballY+35) {
+		paddle2Y -= 6;
+		}
+ }
   
  function moveEverything() {
+	computerMovement();
+ 
 	ballX = ballX + ballSpeedX;
 	ballY = ballY + ballSpeedY;
 	
@@ -95,6 +106,8 @@ window.onload = function() {
 	
 	// next line is the right paddle
 	colorRect(canvas.width-PADDLE_WIDTH,paddle2Y,PADDLE_WIDTH,PADDLE_HEIGHT, 'white');
+	
+	canvasContext.fillText("score stuff", 100, 100);
  }
  
  function colorCircle(centerX, centerY, radius, color) {
